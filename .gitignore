@@ -1,0 +1,11 @@
+# Xcode
+#
+# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+
+## Other
+DampingModule/
+DampingModuleTests/
+DampingModule.xcodeproj
+Sources/DampingModule.h
+Sources/Info.plist
+Sources/Extensions.swift
