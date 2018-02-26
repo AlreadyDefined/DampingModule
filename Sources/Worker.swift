@@ -11,13 +11,13 @@ public class Worker {
             ? equation.solveNew(w: w0)
             : equation.solveOld(w: w0)
         
-        //let minimized = equation.minimize(x0: w0)
-        let minimizedSolution = solution
+        let minimized = equation.minimize(x0: w0)
+        //let minimizedSolution = solution
         
-        //w = minimized
-        //let minimizedSolution = Settings.NewAlgorithm
-            //? equation.solveNew(w: w)
-            //: equation.solveOld(w: w)
+        w = minimized
+        let minimizedSolution = Settings.NewAlgorithm
+            ? equation.solveNew(w: w)
+            : equation.solveOld(w: w)
         
         let shared = Shared(
             _T: Settings.T,
@@ -39,8 +39,8 @@ public class Worker {
         let payload =  String(data: try! JSONEncoder().encode(shared), encoding: String.Encoding.utf8) as String!
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm dd.MM.yyyy"
+        formatter.dateFormat = "HH:mm/dd.MM.yyyy"
         let fileName = formatter.string(from: Date())
-        FileHelper.AppendFile(fileName: fileName, text: payload!)
+        FileHelper.AppendFile(fileName: fileName + ".txt", text: payload!)
     }
 }
