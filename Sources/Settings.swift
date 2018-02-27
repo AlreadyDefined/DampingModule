@@ -3,15 +3,15 @@ import Foundation
 public class Settings {
     static var T = 2.0
     static var K = 3
-    static var M = 20
-    static var N = 1200
+    static var M = 10
+    static var N = 600
     
     static var R = 1.0
     
     static var ExampleNumber = 6
     static var NewAlgorithm = true
     
-    static var ActuatorIndex = 2
+    static var ActuatorIndex = 1
     
     static var Accuracy = 0.01
     
