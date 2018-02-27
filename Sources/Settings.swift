@@ -1,9 +1,9 @@
 import Foundation
 
 public class Settings {
-    static var T = 3.0
+    static var T = 2.0
     static var K = 3
-    static var M = 10
+    static var M = 20
     static var N = 1200
     
     static var R = 1.0
