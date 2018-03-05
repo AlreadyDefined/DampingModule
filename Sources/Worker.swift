@@ -11,13 +11,13 @@ public class Worker {
             ? equation.solveNew(w: w0)
             : equation.solveOld(w: w0)
         
-        let minimized = equation.minimize(x0: w0)
-        //let minimizedSolution = solution
+        //let minimized = equation.minimize(x0: w0)
+        let minimizedSolution = solution
         
-        w = minimized
-        let minimizedSolution = Settings.NewAlgorithm
-            ? equation.solveNew(w: w)
-            : equation.solveOld(w: w)
+        //w = minimized
+        //let minimizedSolution = Settings.NewAlgorithm
+           // ? equation.solveNew(w: w)
+            //: equation.solveOld(w: w)
         
         let shared = Shared(
             _T: Settings.T,
