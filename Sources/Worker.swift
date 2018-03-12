@@ -39,7 +39,7 @@ public class Worker {
         let payload =  String(data: try! JSONEncoder().encode(shared), encoding: String.Encoding.utf8) as String!
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm dd.MM.yyyy"
+        formatter.dateFormat = "HH/mm dd.MM.yyyy"
         let fileName = formatter.string(from: Date())
         FileHelper.AppendFile(fileName: fileName + ".txt", text: payload!)
     }
