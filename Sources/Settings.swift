@@ -13,7 +13,7 @@ public class Settings {
     
     static var ActuatorIndex = 8
     
-    static var Accuracy = 0.001
+    static var Accuracy = 0.01
     
     static func h_r() -> Double {
         return Double(R) / (Double(M) + 0.5)
