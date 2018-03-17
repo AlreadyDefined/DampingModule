@@ -1,29 +1,31 @@
 import Foundation
 
 public class Settings {
-    static var T = 3.0
-    static var K = 3
-    static var M = 10
-    static var N = 1200
+    public static var T = 3.0
+    public static var K = 3
+    public static var M = 10
+    public static var N = 1200
     
-    static var R = 1.0
+    public static var R = 1.0
     
-    static var ExampleNumber = 6
-    static var NewAlgorithm = true
+    public static var ExampleNumber = 6
+    public static var NewAlgorithm = true
     
-    static var ActuatorIndex = 2
+    public static var Minimize = true
     
-    static var Accuracy = 0.01
+    public static var ActuatorIndex = 2
     
-    static func h_r() -> Double {
+    public static var Accuracy = 0.01
+    
+    public static func h_r() -> Double {
         return Double(R) / (Double(M) + 0.5)
     }
     
-    static func h_phi() -> Double {
+    public static func h_phi() -> Double {
         return .pi / Double(K)
     }
     
-    static func tau() -> Double {
+    public static func tau() -> Double {
         return T / Double(N)
     }
     
