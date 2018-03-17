@@ -25,7 +25,7 @@ class Equation : Codable {
     }
     
     private func calculate_f(w: [Double]) -> Array<Array<[Double]>> {
-        var f = Array(repeating: Array(repeating: Array(repeating: 0.0, count: M+1), count: K+3), count: N + 1)
+        var f = Array(repeating: Array(repeating: Array(repeating: 0.0, count: M), count: K+3), count: N + 1)
         
         for n in 0...N {
             for k in 0...K+2 {
@@ -41,10 +41,10 @@ class Equation : Codable {
     }
     
     private func calculate_h0() -> Array<[Double]> {
-        var h0 = Array(repeating: Array(repeating: 0.0, count: M+1), count: K+3)
+        var h0 = Array(repeating: Array(repeating: 0.0, count: M), count: K+3)
         
         for k in 1...K+1 {
-            for m in 0...M {
+            for m in 0...M-1 {
                 h0[k][m] = Settings.Example(type: Settings.FunctionType.h0, m: m)
             }
         }
@@ -53,10 +53,10 @@ class Equation : Codable {
     }
     
     private func calculate_h1() -> Array<[Double]> {
-        var h1 = Array(repeating: Array(repeating: 0.0, count: M+1), count: K+3)
+        var h1 = Array(repeating: Array(repeating: 0.0, count: M), count: K+3)
         
         for k in 1...K+1 {
-            for m in 0...M {
+            for m in 0...M-1 {
                 h1[k][m] = Settings.Example(type: Settings.FunctionType.h1, m: m)
             }
         }
@@ -65,7 +65,7 @@ class Equation : Codable {
     }
     
     private func getFirstTimeLayerOld(prev: Array<[Double]>, f: Array<[Double]>, h1: Array<[Double]>) -> Array<[Double]> {
-        var next = Array(repeating: Array(repeating: 0.0, count: M+1), count: K+3)
+        var next = Array(repeating: Array(repeating: 0.0, count: M), count: K+3)
         // next[k][M] остаётся равным нулю
         
         for k in 1...K+1 {
@@ -76,7 +76,7 @@ class Equation : Codable {
                 2 * pow(tau / (h_r * h_phi), 2) * (prev[k+1][0] - 2 * prev[k][0] + prev[k-1][0]) + pow(tau, 2) * f[k][0] * 0.5
             
             //u_km^1
-            for m in 1...M-1 {
+            for m in 1...M-2 {
                 next[k][m] =    prev[k][m] +
                     tau * h1[k][m] +
                     0.5 * pow(tau / h_r, 2) * bracesOld(prev: prev, f: f, k: k, m: m)
@@ -87,12 +87,12 @@ class Equation : Codable {
     }
     
     private func getFirstTimeLayerNew(prev: Array<[Double]>, f: Array<[Double]>, h1: Array<[Double]>) -> Array<[Double]> {
-        var next = Array(repeating: Array(repeating: 0.0, count: M+1), count: K+3)
+        var next = Array(repeating: Array(repeating: 0.0, count: M), count: K+3)
         // next[k][M] остаётся равным нулю
         
         for k in 1...K+1 {
             //u_km^1
-            for m in 0...M-1 {
+            for m in 0...M-2 {
                 next[k][m] =    prev[k][m] +
                     tau * h1[k][m] +
                     0.5 * pow(tau / h_r, 2) * bracesNew(prev: prev, f: f, k: k, m: m)
@@ -104,7 +104,7 @@ class Equation : Codable {
     
     private func getOtherTimeLayersOld(cur: Array<[Double]>, prev: Array<[Double]>, f: Array<[Double]>) -> Array<[Double]> {
         // next[k][M] остаётся равным нулю
-        var next = Array(repeating: Array(repeating: 0.0, count: M+1), count: K+3)
+        var next = Array(repeating: Array(repeating: 0.0, count: M), count: K+3)
         
         //u_k0^n+1
         for k in 1...K+1 {
@@ -117,7 +117,7 @@ class Equation : Codable {
         
         //u_km^n+1
         for k in 1...K+1 {
-            for m in 1...M-1 {
+            for m in 1...M-2 {
                 next[k][m] =    2 * cur[k][m] -
                     prev[k][m] +
                     pow(tau / h_r, 2) * bracesOld(prev: prev, f: f, k: k, m: m)
@@ -129,11 +129,11 @@ class Equation : Codable {
     
     private func getOtherTimeLayersNew(cur: Array<[Double]>, prev: Array<[Double]>, f: Array<[Double]>) -> Array<[Double]> {
         // next[k][M] остаётся равным нулю
-        var next = Array(repeating: Array(repeating: 0.0, count: M+1), count: K+3)
+        var next = Array(repeating: Array(repeating: 0.0, count: M), count: K+3)
         
         //u_km^n+1
         for k in 1...K+1 {
-            for m in 0...M-1 {
+            for m in 0...M-2 {
                 next[k][m] =    2 * cur[k][m] -
                     prev[k][m] +
                     pow(tau / h_r, 2) * bracesNew(prev: prev, f: f, k: k, m: m)
@@ -168,7 +168,7 @@ class Equation : Codable {
     }
     
     public func solveOld(w: [Double]) -> Array<Array<[Double]>> {
-        var solution = Array(repeating: Array(repeating: Array(repeating: 0.0, count: M+1), count: K+3), count: N + 1)
+        var solution = Array(repeating: Array(repeating: Array(repeating: 0.0, count: M), count: K+3), count: N + 1)
         
         let f = calculate_f(w: w)
         let h1 = calculate_h1()
@@ -198,7 +198,7 @@ class Equation : Codable {
     }
     
     public func solveNew(w: [Double]) -> Array<Array<[Double]>> {
-        var solution = Array(repeating: Array(repeating: Array(repeating: 0.0, count: M+1), count: K+3), count: N + 1)
+        var solution = Array(repeating: Array(repeating: Array(repeating: 0.0, count: M), count: K+3), count: N + 1)
         
         let f = calculate_f(w: w)
         let h1 = calculate_h1()
@@ -228,7 +228,7 @@ class Equation : Codable {
     }
     
     private func shift(u: inout Array<[Double]>) {
-        for m in 0...M {
+        for m in 0...M-1 {
             u[0][m] = u[2][m]
             u[K + 2][m] = u[K][m]
         }
