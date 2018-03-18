@@ -2,9 +2,9 @@ import Foundation
 
 public class Settings {
     public static var T = 2.0
-    public static var K = 15
+    public static var K = 20
     public static var M = 10
-    public static var N = 1000
+    public static var N = 300
     
     public static var R = 1.0
     
@@ -13,7 +13,7 @@ public class Settings {
     
     public static var Minimize = true
     
-    public static var ActuatorIndex = 2
+    public static var ActuatorIndex = 1
     
     public static var Accuracy = 0.1
     
