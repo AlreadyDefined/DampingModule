@@ -2,7 +2,7 @@ import Foundation
 
 public class Settings {
     public static var T = 2.0
-    public static var K = 15
+    public static var K = 3
     public static var M = 10
     public static var N = 1500
     
@@ -13,9 +13,9 @@ public class Settings {
     
     public static var Minimize = true
     
-    public static var ActuatorIndex = 1
+    public static var ActuatorIndex = 2
     
-    public static var Accuracy = 0.1
+    public static var Accuracy = 0.001
     
     public static func h_r() -> Double {
         return Double(R) / (Double(M) + 0.5)
