@@ -13,9 +13,9 @@ public class Settings {
     
     public static var Minimize = true
     
-    public static var ActuatorIndex = 5
+    public static var ActuatorIndex = 2
     
-    public static var Accuracy = 0.001
+    public static var Accuracy = 0.1
     
     public static func h_r() -> Double {
         return Double(R) / (Double(M) + 0.5)
