@@ -28,7 +28,7 @@ class Equation : Codable {
         var f = Array(repeating: Array(repeating: Array(repeating: 0.0, count: M+1), count: K+3), count: N + 1)
         
         for n in 0...N {
-            for k in 0...K+2 {
+            for k in 1...K+1 {
                 //for m in 0...M {
                 f[n][k][Settings.ActuatorIndex] = w[n]
                 //Вариант для сравнения с аналитическим значением
