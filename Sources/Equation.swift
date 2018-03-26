@@ -346,6 +346,14 @@ class Equation : Codable {
             for i in 0...N {
                 //x = MethodOfTheGoldenRatio(x: x, i: i, a: -10, b: 10, accuracy: accuracy)
                 x = ParabolicMethod(x: x, i: i)
+                for i in 0...N {
+                    if (x[i] >= 20) {
+                        x[i] = 20
+                    }
+                    else if (x[i] <= -20) {
+                        x[i] = -20
+                    }
+                }
                 print(i)
             }
             counter += 1
