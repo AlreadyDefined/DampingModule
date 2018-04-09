@@ -1,10 +1,10 @@
 import Foundation
 
 public class Settings {
-    public static var T = 3.0
-    public static var K = 10
+    public static var T = 2.0
+    public static var K = 30
     public static var M = 10
-    public static var N = 1200
+    public static var N = 600
     
     public static var R = 1.0
     
@@ -112,7 +112,7 @@ public class Settings {
         
         switch(type) {
         case .h0:
-            return 1.0 / 4.0 * sin(.pi * r)
+            return 1.0 / 4.0 * cos(.pi * r / 2)
         case .h1:
             return 0
         default:
