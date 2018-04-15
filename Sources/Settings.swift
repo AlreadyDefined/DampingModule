@@ -8,7 +8,7 @@ public class Settings {
     
     public static var R = 1.0
     
-    public static var ExampleNumber = 5
+    public static var ExampleNumber = 6
     public static var NewAlgorithm = true
     
     public static var Minimize = true
@@ -112,7 +112,7 @@ public class Settings {
         
         switch(type) {
         case .h0:
-            return 1.0 / 4.0 * sin(.pi * r)
+            return 1.0 / 8.0 * sin(.pi * r)
         case .h1:
             return 0
         default:
