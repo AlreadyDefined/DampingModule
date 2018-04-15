@@ -112,7 +112,7 @@ public class Settings {
         
         switch(type) {
         case .h0:
-            return 1.0 / 8.0 * sin(.pi * r)
+            return 1.0 / 2.0 * sin(.pi * r)
         case .h1:
             return 0
         default:
