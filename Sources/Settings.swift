@@ -4,11 +4,11 @@ public class Settings {
     public static var T = 2.0
     public static var K = 10
     public static var M = 10
-    public static var N = 600
+    public static var N = 1000
     
     public static var R = 1.0
     
-    public static var ExampleNumber = 6
+    public static var ExampleNumber = 5
     public static var NewAlgorithm = true
     
     public static var Minimize = true
