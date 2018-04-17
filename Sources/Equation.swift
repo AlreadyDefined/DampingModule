@@ -342,7 +342,7 @@ class Equation : Codable {
             print("Интеграл: \(integral)")
             
             for i in 0...N {
-                x = MethodOfTheGoldenRatio(x: x, i: i, a: -100, b: 100, accuracy: accuracy)
+                x = MethodOfTheGoldenRatio(x: x, i: i, a: -100, b: 100, accuracy: 0.01)
                 //x = ParabolicMethod(x: x, i: i)
                 //for i in 0...N {
                   //  if (x[i] >= 5) {
