@@ -30,7 +30,7 @@ class Equation : Codable {
         for n in 0...N {
             //for k in 1...K+1 {
                 //for m in 0...M {
-                f[n][2][Settings.ActuatorIndex] = w[n]
+                f[n][1][Settings.ActuatorIndex] = w[n]
                 //Вариант для сравнения с аналитическим значением
                 //f[n][k][m] = Settings.Example(type: Settings.FunctionType.f, m: m, n: Double(n))
                 //}
@@ -369,12 +369,12 @@ class Equation : Codable {
             solveNew(w: w)
         
         for k in 1...K+1 {
-            for m in 1...M { // m in 1...M-1
+            for m in 0...M { // m in 1...M-1
                 let a1 = pow(solution[N][k][m], 2)
                 let aa1 = (solution[N][k][m] - solution[N-1][k][m])
                 let a2 = pow(aa1 / tau, 2)
                 
-                let b = (Double(m) + 0.5) * h_r * h_phi
+                let b = (Double(m) + 0.5) * pow(h_r, 2) * h_phi
                 
                 result += (a1 + a2) * b
                 
