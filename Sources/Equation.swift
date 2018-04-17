@@ -189,11 +189,6 @@ class Equation : Codable {
             shift(u: &solution[n])
         }
         
-        
-        //print("Решение: \(solution)")
-        //let maxDiff = MathHelper.calculateMaxDiff(actual: solution, expected: MathHelper.calculateExactFunction())
-        //print("exact: \(MathHelper.calculateExactFunction()[N])")
-        //print("diff: \(maxDiff)")
         return solution
     }
     
@@ -224,6 +219,9 @@ class Equation : Codable {
         //let maxDiff = MathHelper.calculateMaxDiff(actual: solution, expected: MathHelper.calculateExactFunction())
         //print("exact: \(MathHelper.calculateExactFunction()[N])")
         //print("diff: \(maxDiff)")
+        let maxDiff = MathHelper.calculateMaxDiff1(actual: solution, expected: MathHelper.calculateExactFunction())
+        //print("exact: \(MathHelper.calculateExactFunction()[N])")
+        print("diff: \(maxDiff)")
         return solution
     }
     
@@ -346,14 +344,14 @@ class Equation : Codable {
             for i in 0...N {
                 //x = MethodOfTheGoldenRatio(x: x, i: i, a: -10, b: 10, accuracy: accuracy)
                 x = ParabolicMethod(x: x, i: i)
-                for i in 0...N {
-                    if (x[i] >= 20) {
-                        x[i] = 20
-                    }
-                    else if (x[i] <= -20) {
-                        x[i] = -20
-                    }
-                }
+//                for i in 0...N {
+//                    if (x[i] >= 20) {
+//                        x[i] = 20
+//                    }
+//                    else if (x[i] <= -20) {
+//                        x[i] = -20
+//                    }
+//                }
                 print(i)
             }
             counter += 1

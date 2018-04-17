@@ -8,14 +8,14 @@ public class Settings {
     
     public static var R = 1.0
     
-    public static var ExampleNumber = 6
+    public static var ExampleNumber = 5
     public static var NewAlgorithm = true
     
     public static var Minimize = true
     
-    public static var ActuatorIndex = 5
+    public static var ActuatorIndex = 2
     
-    public static var Accuracy = 0.001
+    public static var Accuracy = 0.01
     
     public static func h_r() -> Double {
         return Double(R) / (Double(M) + 0.5)
