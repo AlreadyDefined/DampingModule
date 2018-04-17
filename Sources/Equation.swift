@@ -219,9 +219,9 @@ class Equation : Codable {
         //let maxDiff = MathHelper.calculateMaxDiff(actual: solution, expected: MathHelper.calculateExactFunction())
         //print("exact: \(MathHelper.calculateExactFunction()[N])")
         //print("diff: \(maxDiff)")
-        let maxDiff = MathHelper.calculateMaxDiff1(actual: solution, expected: MathHelper.calculateExactFunction())
+        //let maxDiff = MathHelper.calculateMaxDiff1(actual: solution, expected: MathHelper.calculateExactFunction())
         //print("exact: \(MathHelper.calculateExactFunction()[N])")
-        print("diff: \(maxDiff)")
+        //print("diff: \(maxDiff)")
         return solution
     }
     
