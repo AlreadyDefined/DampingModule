@@ -30,7 +30,7 @@ class Equation : Codable {
         for n in 0...N {
             //for k in 1...K+1 {
                 //for m in 0...M {
-                f[n][1][Settings.ActuatorIndex] = w[n]
+                f[n][2][Settings.ActuatorIndex] = w[n]
                 //Вариант для сравнения с аналитическим значением
                 //f[n][k][m] = Settings.Example(type: Settings.FunctionType.f, m: m, n: Double(n))
                 //}
