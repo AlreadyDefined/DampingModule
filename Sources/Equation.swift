@@ -11,6 +11,7 @@ class Equation : Codable {
     var h_phi: Double
     var tau: Double
     
+    var basis: Array<Array<Double>> = []
     
     init(_T: Double, _K: Int, _M: Int, _N: Int, _R: Double, _h_r: Double, _h_phi: Double, _tau: Double){
         T = _T
@@ -22,19 +23,29 @@ class Equation : Codable {
         h_r = _h_r
         h_phi = _h_phi
         tau = _tau
+        
+        basis = Array(repeating: Array(repeating: 0.0, count: N+1), count: N+1)
+        
+        for i in 0...N {
+            for j in 0...N {
+                if (i == j) {
+                    basis[i][j] = 1
+                }
+            }
+        }
     }
     
     private func calculate_f(w: [Double]) -> Array<Array<[Double]>> {
         var f = Array(repeating: Array(repeating: Array(repeating: 0.0, count: M+1), count: K+3), count: N + 1)
         
         for n in 0...N {
-            //for k in 1...K+1 {
+            for k in 1...K+1 {
                 //for m in 0...M {
-                f[n][2][Settings.ActuatorIndex] = w[n]
+                f[n][k][Settings.ActuatorIndex] = w[n]
                 //Вариант для сравнения с аналитическим значением
                 //f[n][k][m] = Settings.Example(type: Settings.FunctionType.f, m: m, n: Double(n))
                 //}
-            //}
+            }
         }
         
         return f
@@ -219,9 +230,9 @@ class Equation : Codable {
         //let maxDiff = MathHelper.calculateMaxDiff(actual: solution, expected: MathHelper.calculateExactFunction())
         //print("exact: \(MathHelper.calculateExactFunction()[N])")
         //print("diff: \(maxDiff)")
-        let maxDiff = MathHelper.calculateMaxDiff1(actual: solution, expected: MathHelper.calculateExactFunction())
+        //let maxDiff = MathHelper.calculateMaxDiff1(actual: solution, expected: MathHelper.calculateExactFunction())
         //print("exact: \(MathHelper.calculateExactFunction()[N])")
-        print("diff: \(maxDiff)")
+        //print("diff: \(maxDiff)")
         return solution
     }
     
@@ -233,7 +244,12 @@ class Equation : Codable {
     }
     
     public func minimize(x0: [Double]) -> [Double] {
-        return CoordinateDescent(N: N, x0: x0)
+        //return CoordinateDescent(N: N, x0: x0)
+        let x0 = Array(repeating: 0.0, count: Settings.N + 1)
+        var result = x0
+        let iters = Hooke(x0: x0, result: &result, rho: 0.2, iterMax: 1000)
+        print("Всего итераций: \(iters)")
+        return result
     }
     
     private func ParabolicMethod(x: [Double], i: Int) -> [Double] {
@@ -327,6 +343,42 @@ class Equation : Codable {
         return _x
     }
     
+//    private func MethodOfTheGoldenRatio(a: Double, b: Double, accuracy: Double, xk: [Double], uk: [Double]) -> Double {
+//
+//        let phi = (1 + sqrt(5))/2
+//
+//        var _a = a
+//        var _b = b
+//        var x1: Double
+//        var x2: Double
+//        var y1, y2: Double
+//
+//        repeat {
+//            x1 = _b - (_b - _a) / phi
+//            x2 = _a + (_b - _a) / phi
+//            y1 = PseudoFunc(x: x1, xk: xk, uk: uk)
+//            y2 = PseudoFunc(x: x2, xk: xk, uk: uk)
+//
+//            if (y1 >= y2) {
+//                _a = x1
+//            }
+//            else {
+//                _b = x2
+//            }
+//        }
+//        while (abs(_b - _a) > accuracy)
+//        return (_a + _b) / 2
+//    }
+    
+//    private func PseudoFunc(x: Double, xk: [Double], uk: [Double]) -> Double {
+//        var result = Array(repeating: 0.0, count: xk.count)
+//        for i in 0...xk.count {
+//            result[i] = xk[i] + x * uk[i]
+//        }
+//
+//        return calculateIntegral(w: result)
+//    }
+    
     private func CoordinateDescent(N: Int, x0: [Double]) -> [Double]
         //minimizes N-dimensional function f; x0 - start point
     {
@@ -341,17 +393,17 @@ class Equation : Codable {
             print("Управление: \(x)")
             print("Интеграл: \(integral)")
             
-            for i in 0...N {
+            for i in 0...N { // x0.count
                 //x = MethodOfTheGoldenRatio(x: x, i: i, a: -10, b: 10, accuracy: accuracy)
                 x = ParabolicMethod(x: x, i: i)
-//                for i in 0...N {
-//                    if (x[i] >= 20) {
-//                        x[i] = 20
-//                    }
-//                    else if (x[i] <= -20) {
-//                        x[i] = -20
-//                    }
-//                }
+                for i in 0...N {
+                    if (x[i] >= 10) {
+                        x[i] = 10
+                    }
+                    else if (x[i] <= -10) {
+                        x[i] = -10
+                    }
+                }
                 print(i)
             }
             counter += 1
@@ -359,6 +411,205 @@ class Equation : Codable {
             while (integral > Settings.Accuracy)
         
         return x
+    }
+    
+//    private func HookeJeevesMethod(w: [Double]) -> [Double] {
+//        let gamma = 2.0 // параметр дробления функции перемещения
+//        var b = Array(repeating: 0.5, count: Settings.N + 1) // вектор перемещений
+//        var k = 0 // итерации
+//        var curx = w // нормальные k-тые точки
+//        var wavex = w // x с волной и с нижним индексом -- промежуточные точки
+//        var xkwave = w // x с волной без нижнего индекса
+//        var uk = w
+//        var xk = w
+//        var a = 0.0
+//        var tmp1 = w
+//        var tmp2 = w
+//        var fpj = 0.0
+//        var fmj = 0.0
+//        var fkj = 0.0
+//
+//        while (true) {
+//            while (xkwave == wavex) {
+//                for j in 0...Settings.N {
+//                    fkj = calculateIntegral(w: wavex)
+//                    for i in 0...Settings.N {
+//                        tmp1 = wavex
+//                        tmp1[i] += b[i] * basis[j][i]
+//                        fpj = calculateIntegral(w: tmp1)
+//
+//                        tmp2 = wavex
+//                        tmp2[i] -= b[i] * basis[j][i]
+//                        fmj = calculateIntegral(w: tmp2)
+//
+//                        if (fpj < fkj && fpj <= fmj) {
+//                            wavex = tmp1
+//                        }
+//                        else if (fmj < fkj && fmj < fpj) {
+//                            wavex = tmp2
+//                        }
+//                    }
+//                }
+//
+//                if (xkwave != wavex) {
+//                    for l in 0...Settings.N {
+//                        b[l] /= gamma
+//                    }
+//                    if (abs(b.max()!) < Settings.Accuracy / 1000) {
+//                        return wavex
+//                    }
+//                }
+//            }
+//
+//            var diff = Array(repeating: 0.0, count: Settings.N + 1)
+//
+//            var max = 0.0
+//
+//            for l in 0...Settings.N {
+//                diff[l] = abs(xkwave[l] - wavex[l])
+//                if (diff[l] > max) {
+//                    max = diff[l]
+//                }
+//            }
+//
+//            // вектора различны
+//            if (max < Settings.Accuracy / 100) {
+//                return wavex
+//            }
+//
+//            var lastxkwave = xkwave
+//            var xkwave = wavex
+//
+//            for i in 0...Settings.N {
+//                uk[i] = xkwave[i] - lastxkwave[i]
+//            }
+//
+//            xk = curx
+//            a = MethodOfTheGoldenRatio(a: 0, b: 100, accuracy: 0.001, xk: xk, uk: uk)
+//
+//            for i in 0...Settings.N {
+//                curx[i] = lastxkwave[i] + a * uk[i]
+//            }
+//
+//            wavex = curx
+//            xkwave = curx
+//            k += 1
+//
+//            print("Итерация: \(k)")
+//            print("Управление: \(wavex)")
+//            print("Интеграл: \(calculateIntegral(w: wavex))")
+//        }
+//    }
+    
+    private func BestNearBy(delta: [Double], x: inout [Double], prevBest: Double) -> Double {
+        var z = x
+        var minf = prevBest
+        var ftmp = 0.0
+        
+        for i in 0...Settings.N {
+            z[i] = x[i] + delta[i]
+            ftmp = calculateIntegral(w: z)
+            if (ftmp < minf) {
+                minf = ftmp
+            }
+            else {
+                z[i] = x[i] - delta[i]
+                ftmp = calculateIntegral(w: z)
+                if (ftmp < minf) {
+                    minf = ftmp
+                }
+                else {
+                    z[i] = x[i]
+                }
+            }
+        }
+        
+        x = z
+        
+        print("newf: \(minf)")
+        return minf
+    }
+    
+    private func Hooke(x0: [Double], result: inout [Double], rho: Double, iterMax: Int) -> Int {
+        var iters = 0
+        var iadj = 0
+        var stepLength = rho
+        var newx = x0
+        var xbefore = x0
+        var keep = 0
+        
+        var delta = Array(repeating: rho, count: Settings.N + 1)
+        for i in 0...Settings.N {
+            if (x0[i] != 0) {
+                delta[i] *= x0[i]
+            }
+        }
+        
+        var fbefore = calculateIntegral(w: newx)
+        var newf = fbefore
+        
+        print("Итерация: \(iters)")
+        print("Управление: \(newx)")
+        print("Интеграл: \(fbefore)")
+        
+        while (iters < iterMax && stepLength > Settings.Accuracy / 10000) {
+
+            iters += 1
+            iadj += 1
+            
+            newx = xbefore
+            newf = BestNearBy(delta: delta, x: &newx, prevBest: fbefore)
+
+            keep = 1
+            while (newf < fbefore && keep == 1) {
+                iadj = 0
+                for i in 0...Settings.N {
+                    if (newx[i] <= xbefore[i]) {
+                        delta[i] = -abs(delta[i])
+                    }
+                    else {
+                        delta[i] = abs(delta[i])
+                    }
+                    
+                    let tmp = xbefore[i]
+                    xbefore[i] = newx[i]
+                    newx[i] = newx[i] + newx[i] - tmp
+                }
+                fbefore = newf
+                newf = BestNearBy(delta: delta, x: &newx, prevBest: fbefore)
+                
+                if (newf >= fbefore) {
+                    break
+                }
+                
+                keep = 0
+                for i in 0...Settings.N {
+                    keep = 1
+                    
+                    let absv = abs(newx[i] - xbefore[i])
+                    if (absv > 0.5 * abs(delta[i])) {
+                        break
+                    }
+                    else {
+                        keep = 0
+                    }
+                }
+            }
+            
+            if (stepLength >= Settings.Accuracy / 10000 && newf >= fbefore) {
+                stepLength *= rho
+                for i in 0...Settings.N {
+                    delta[i] *= rho
+                }
+            }
+            
+            print("Итерация: \(iters)")
+            print("Управление: \(xbefore)")
+            print("Интеграл: \(fbefore)")
+        }
+        
+        result = xbefore
+        return iters
     }
     
     public func calculateIntegral(w: [Double]) -> Double {
