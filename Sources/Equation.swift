@@ -247,7 +247,7 @@ class Equation : Codable {
         //return CoordinateDescent(N: N, x0: x0)
         let x0 = Array(repeating: 0.0, count: Settings.N + 1)
         var result = x0
-        let iters = Hooke(x0: x0, result: &result, rho: 0.2, iterMax: 1000)
+        let iters = Hooke(x0: x0, result: &result, rho: 0.5, iterMax: 1000)
         print("Всего итераций: \(iters)")
         return result
     }
