@@ -9,8 +9,6 @@ public class Settings {
     public static var R = 1.0
     
     public static var ExampleNumber = 6
-    // убрать
-    public static var NewAlgorithm = true
     
     public static var Minimize = true
     

@@ -21,9 +21,10 @@ public class Shared : Codable {
          _w: Array<Double> = [],
          _soultion: Array<Array<[Double]>> = [[[]]],
          _minimizedSolution: Array<Array<[Double]>> = [[[]]],
-         _newAlgorithm: Bool = true,
+         _workTimeSec: Double = 0.0,
          _actuatorIndex: Int = 0,
-         _accuracy: Double = 0.0) {
+         _accuracy: Double = 0.0,
+         _exampleNumber: Int = 0) {
         T = _T
         K = _K
         M = _M
@@ -41,11 +42,10 @@ public class Shared : Codable {
         solution = _soultion
         minimizedSolution = _minimizedSolution
         
-        newAlgorithm = _newAlgorithm
-        
+        workTimeSec = _workTimeSec
         actuatorIndex = _actuatorIndex
-        
         accuracy = _accuracy
+        exampleNumber = _exampleNumber
     }
     
     public static var instance = Shared()
@@ -67,10 +67,9 @@ public class Shared : Codable {
     public var solution = Array<Array<[Double]>>()
     public var minimizedSolution = Array<Array<[Double]>>()
 
-    public var newAlgorithm: Bool
-    
+    public var workTimeSec: Double
     public var actuatorIndex: Int
-    
     public var accuracy: Double
+    public var exampleNumber: Int
 }
 
