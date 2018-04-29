@@ -9,3 +9,4 @@ DampingModule.xcodeproj
 Sources/DampingModule.h
 Sources/Info.plist
 Sources/Extensions.swift
+Package.swift
