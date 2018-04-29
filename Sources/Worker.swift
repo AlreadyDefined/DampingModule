@@ -2,24 +2,18 @@ import Foundation
 
 public class Worker {
     public init() {
-        let w0 = Array(repeating: 1.0, count: Settings.N + 1)
-        var w = Array(repeating: 0.0, count: Settings.N + 1)
-        
+        let w0 = Array(repeating: 0.0, count: Settings.N)
+        var w = Array(repeating: 0.0, count: Settings.N)
+
         let equation = Equation(_T: Settings.T, _K: Settings.K, _M: Settings.M, _N: Settings.N, _R: Settings.R, _h_r: Settings.h_r(), _h_phi: Settings.h_phi(), _tau: Settings.tau())
         
-        let solution = Settings.NewAlgorithm
-            ? equation.solveNew(w: w0)
-            : equation.solveOld(w: w0)
+        let solution = equation.Solve(w: w0)
         
         var minimizedSolution = solution
         
         if (Settings.Minimize) {
-            let minimized = equation.minimize(x0: w0)
-            
-            w = minimized
-            minimizedSolution = Settings.NewAlgorithm
-                ? equation.solveNew(w: w)
-                : equation.solveOld(w: w)
+            w = equation.minimize(x0: w0)
+            minimizedSolution = equation.Solve(w: w)
         }
         
         let shared = Shared(
@@ -42,7 +36,7 @@ public class Worker {
         let payload =  String(data: try! JSONEncoder().encode(shared), encoding: String.Encoding.utf8) as String!
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "HH-mm dd.MM.yyyy"
+        formatter.dateFormat = "HH-mm-ss dd.MM.yyyy"
         let fileName = formatter.string(from: Date())
         FileHelper.AppendFile(fileName: fileName + ".txt", text: payload!)
     }
