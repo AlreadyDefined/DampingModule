@@ -394,7 +394,7 @@ class Equation : Codable {
         
         let solution = Solve(w: w)
         
-        for k in 1...K+1 {
+        for k in 1...K {
             for m in 0...M-1 {
                 let a1 = pow(solution[N-1][k][m], 2)
                 let aa1 = (solution[N-1][k][m] - solution[N-2][k][m])
