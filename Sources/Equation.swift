@@ -11,8 +11,6 @@ class Equation : Codable {
     var h_phi: Double
     var tau: Double
     
-    var basis: Array<Array<Double>> = []
-    
     init(_T: Double, _K: Int, _M: Int, _N: Int, _R: Double, _h_r: Double, _h_phi: Double, _tau: Double){
         T = _T
         K = _K
@@ -23,16 +21,6 @@ class Equation : Codable {
         h_r = _h_r
         h_phi = _h_phi
         tau = _tau
-        
-        basis = Array(repeating: Array(repeating: 0.0, count: N+1), count: N+1)
-        
-        for i in 0...N {
-            for j in 0...N {
-                if (i == j) {
-                    basis[i][j] = 1
-                }
-            }
-        }
     }
     
     private func calculate_f(w: [Double]) -> Array<Array<[Double]>> {
@@ -551,7 +539,7 @@ class Equation : Codable {
         print("Управление: \(newx)")
         print("Интеграл: \(fbefore)")
         
-        while (iters < iterMax && stepLength > Settings.Accuracy / 10000) {
+        while (newf > Settings.Accuracy) {
 
             iters += 1
             iadj += 1
