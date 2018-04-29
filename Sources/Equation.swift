@@ -207,7 +207,6 @@ class Equation : Codable {
         var solution = Array(repeating: Array(repeating: Array(repeating: 0.0, count: M+1), count: K+3), count: N+1)
         
         let f = calculate_f(w: w)
-        let h1 = calculate_h1()
         
         for n in 0...N {
             switch(n) {
@@ -215,7 +214,7 @@ class Equation : Codable {
                 solution[n] = calculate_h0()
                 break;
             case 1:
-                solution[n] = getFirstTimeLayerNew(prev: solution[0], f: f[0], h1: h1)
+                solution[n] = getFirstTimeLayerNew(prev: solution[0], f: f[0], h1: calculate_h1())
                 break;
             default:
                 solution[n] = getOtherTimeLayersNew(cur: solution[n - 1], prev: solution[n - 2], f: f[n - 1])
@@ -247,7 +246,7 @@ class Equation : Codable {
         //return CoordinateDescent(N: N, x0: x0)
         let x0 = Array(repeating: 0.0, count: Settings.N + 1)
         var result = x0
-        let iters = Hooke(x0: x0, result: &result, rho: 0.2, iterMax: 1000)
+        let iters = Hooke(x0: x0, result: &result, rho: 0.1, iterMax: 1000)
         print("Всего итераций: \(iters)")
         return result
     }
@@ -624,15 +623,15 @@ class Equation : Codable {
                 let a1 = pow(solution[N][k][m], 2)
                 let aa1 = (solution[N][k][m] - solution[N-1][k][m])
                 let a2 = pow(aa1 / tau, 2)
-                
+
                 let b = (Double(m) + 0.5) * pow(h_r, 2) * h_phi
-                
+
                 result += (a1 + a2) * b
                 
-                //                    let a1 = (solution[N][k][m+1] - solution[N][k][m-1]) / (2 * h_r)
-                //                    let a2 = (solution[N][k][m] - solution[N-1][k][m]) / tau
-                //
-                //                    result += (pow(a1, 2) + pow(a2, 2))
+//                                    let a1 = (solution[N][k][m+1] - solution[N][k][m-1]) / (2 * h_r)
+//                                    let a2 = (solution[N][k][m] - solution[N-1][k][m]) / tau
+//
+//                                    result += (pow(a1, 2) + pow(a2, 2)) * (Double(m) + 0.5) * pow(h_r, 2) * h_phi
             }
         }
         
