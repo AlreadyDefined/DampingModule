@@ -33,7 +33,8 @@ public class Worker {
             _workTimeSec: workTimeSec,
             _actuatorIndex: Settings.ActuatorIndex,
             _accuracy: Settings.Accuracy,
-            _exampleNumber: Settings.ExampleNumber);
+            _exampleNumber: Settings.ExampleNumber,
+            _actuatorType: Settings.ActuatorType);
         
         let payload =  String(data: try! JSONEncoder().encode(shared), encoding: String.Encoding.utf8) as String!
         
