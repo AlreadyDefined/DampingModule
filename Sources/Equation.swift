@@ -158,7 +158,7 @@ class Equation {
     
     private func ParabolicMethod(x: [Double], i: Int) -> Double {
         let accuracy = 0.01
-        var h = 2 * 0.1
+        var h = 2 * 2.0
         
         var nextX = 0.0
         var currentX = 0.0
@@ -176,9 +176,7 @@ class Equation {
             x3[i] = currentX + h
 
             let f1 = CalculateIntegral(w: x1)
-            
             let f2 = CalculateIntegral(w: x2)
-            
             let f3 = CalculateIntegral(w: x3)
 
             let b = (f3 - f1) / (2 * h)
