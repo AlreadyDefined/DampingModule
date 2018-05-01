@@ -42,16 +42,16 @@ class Equation {
 //            }
 //            break
 //        case Settings.ActType.circular:
-//            for n in 0...N-1 {
-//                for k in 1...K {
-//                    f[n][k][Settings.ActuatorIndex] = w[n]
-//                }
-//            }
+            for n in 0...N-1 {
+                for k in 1...K {
+                    f[n][k][Settings.ActuatorIndex] = w[n]
+                }
+            }
 //            break
 //        case Settings.ActType.point:
-            for n in 0...N-1 {
-                f[n][1][Settings.ActuatorIndex] = w[n]
-            }
+//            for n in 0...N-1 {
+//                f[n][1][Settings.ActuatorIndex] = w[n]
+//            }
 //        }
 
         return f
