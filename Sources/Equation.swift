@@ -227,12 +227,12 @@ class Equation {
             
             for i in 0...N-1 {
                 x[i] = ParabolicMethod(x: x, i: i)
-                if (x[i] >= 5) {
-                    x[i] = 5
-                }
-                else if (x[i] <= 5) {
-                    x[i] = 5
-                }
+//                if (x[i] >= 5) {
+//                    x[i] = 5
+//                }
+//                else if (x[i] <= 5) {
+//                    x[i] = 5
+//                }
                 print(i)
             }
             counter += 1
