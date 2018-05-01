@@ -42,16 +42,16 @@ class Equation {
 //            }
 //            break
 //        case Settings.ActType.circular:
-            for n in 0...N-1 {
-                for k in 1...K {
-                    f[n][k][Settings.ActuatorIndex] = w[n]
-                }
-            }
+//            for n in 0...N-1 {
+//                for k in 1...K {
+//                    f[n][k][Settings.ActuatorIndex] = w[n]
+//                }
+//            }
 //            break
 //        case Settings.ActType.point:
-//            for n in 0...N-1 {
-//                f[n][1][Settings.ActuatorIndex] = w[n]
-//            }
+            for n in 0...N-1 {
+                f[n][1][Settings.ActuatorIndex] = w[n]
+            }
 //        }
 
         return f
@@ -188,19 +188,14 @@ class Equation {
             }
             else {
                 let minF = min(f1, f2, f3)
-                switch (minF) {
-                case f1:
+                if (minF == f1) {
                     nextX = currentX - h
-                    break
-                case f2:
+                }
+                else if (minF == f2) {
                     nextX = currentX
-                    break
-                case f3:
+                }
+                else if (minF == f3) {
                     nextX = currentX + h
-                    break
-                default:
-                    nextX = 100
-                    break
                 }
             }
             
@@ -227,12 +222,12 @@ class Equation {
             
             for i in 0...N-1 {
                 x[i] = ParabolicMethod(x: x, i: i)
-                if (x[i] >= 5) {
-                    x[i] = 5
-                }
-                else if (x[i] <= 5) {
-                    x[i] = 5
-                }
+//                if (x[i] >= 5) {
+//                    x[i] = 5
+//                }
+//                else if (x[i] <= 5) {
+//                    x[i] = 5
+//                }
                 print(i)
             }
             counter += 1
