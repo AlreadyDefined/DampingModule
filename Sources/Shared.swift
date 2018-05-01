@@ -25,7 +25,8 @@ public class Shared : Codable {
          _actuatorIndex: Int = 0,
          _accuracy: Double = 0.0,
          _exampleNumber: Int = 0,
-         _actuatorType: Settings.ActType = Settings.ActType.none) {
+         _actuatorType: Settings.ActType = Settings.ActType.none,
+         _iters: Int = 0) {
         T = _T
         K = _K
         M = _M
@@ -48,6 +49,7 @@ public class Shared : Codable {
         accuracy = _accuracy
         exampleNumber = _exampleNumber
         actuatorType = String(describing: _actuatorType)
+        iters = _iters
     }
     
     public static var instance = Shared()
@@ -74,5 +76,6 @@ public class Shared : Codable {
     public var accuracy: Double
     public var exampleNumber: Int
     public var actuatorType: String
+    public var iters: Int
 }
 

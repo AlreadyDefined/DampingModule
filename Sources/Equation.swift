@@ -12,6 +12,7 @@ class Equation {
     var tau: Double = 0.0
     var h0: Array<[Double]> = []
     var h1: Array<[Double]> = []
+    var iters: Int = 0
     
     init(_T: Double, _K: Int, _M: Int, _N: Int, _R: Double, _h_r: Double, _h_phi: Double, _tau: Double){
         T = _T
@@ -158,7 +159,7 @@ class Equation {
     
     private func ParabolicMethod(x: [Double], i: Int) -> Double {
         let accuracy = 0.01
-        var h = 2 * 2.0
+        var h = 2 * 0.1
         
         var nextX = 0.0
         var currentX = 0.0
@@ -226,12 +227,18 @@ class Equation {
             
             for i in 0...N-1 {
                 x[i] = ParabolicMethod(x: x, i: i)
+                if (x[i] >= 5) {
+                    x[i] = 5
+                }
+                else if (x[i] <= 5) {
+                    x[i] = 5
+                }
                 print(i)
             }
             counter += 1
         }
         while (integral > Settings.Accuracy)
-        
+        iters = counter
         return x
     }
 

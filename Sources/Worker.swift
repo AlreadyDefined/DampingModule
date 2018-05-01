@@ -34,7 +34,8 @@ public class Worker {
             _actuatorIndex: Settings.ActuatorIndex,
             _accuracy: Settings.Accuracy,
             _exampleNumber: Settings.ExampleNumber,
-            _actuatorType: Settings.ActuatorType);
+            _actuatorType: Settings.ActuatorType,
+            _iters: equation.iters);
         
         let payload =  String(data: try! JSONEncoder().encode(shared), encoding: String.Encoding.utf8) as String!
         
