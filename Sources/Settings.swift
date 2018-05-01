@@ -8,7 +8,7 @@ public class Settings {
     
     public static var R = 1.0
     
-    public static var ExampleNumber = 3
+    public static var ExampleNumber = 7
     
     public static var Minimize = true
     
@@ -121,6 +121,19 @@ public class Settings {
         }
     }
     
+    private static func Example7(type: FunctionType, m: Int, n: Double) -> Double {
+        let r = (Double(m) + 0.5) * Settings.h_r()
+        
+        switch(type) {
+        case .h0:
+            return 1.0 / 2.0 * (1 - r * r)
+        case .h1:
+            return 0
+        default:
+            return 0
+        }
+    }
+    
     public static func Example(type: FunctionType, m: Int, n: Double = 0.0) -> Double {
         switch(Settings.ExampleNumber) {
         case 1:
@@ -135,6 +148,8 @@ public class Settings {
             return Settings.Example5(type: type, m: m, n: n)
         case 6:
             return Settings.Example6(type: type, m: m, n: n)
+        case 7:
+            return Settings.Example7(type: type, m: m, n: n)
         default:
             return 0.0
         }
