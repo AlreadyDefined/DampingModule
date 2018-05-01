@@ -4,7 +4,7 @@ public class Settings {
     public static var T = 3.0
     public static var K = 10
     public static var M = 5
-    public static var N = 600
+    public static var N = 200
     
     public static var R = 1.0
     
@@ -12,11 +12,11 @@ public class Settings {
     
     public static var Minimize = true
     
-    public static var ActuatorIndex = 1
+    public static var ActuatorIndex = 2
     
     public static var Accuracy = 0.001
     
-    public static var ActuatorType = ActType.point
+    public static var ActuatorType = ActType.circular
     
     public static func h_r() -> Double {
         return Double(R) / (Double(M) - 0.5)
