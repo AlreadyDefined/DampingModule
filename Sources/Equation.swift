@@ -49,9 +49,9 @@ class Equation {
 //            }
 //            break
 //        case Settings.ActType.point:
-//            for n in 0...N-1 {
+            for n in 0...N-1 {
                 f[n][1][Settings.ActuatorIndex] = w[n]
-//            }
+            }
 //        }
 
         return f
