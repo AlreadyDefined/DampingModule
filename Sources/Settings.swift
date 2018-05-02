@@ -8,11 +8,11 @@ public class Settings {
     
     public static var R = 1.0
     
-    public static var ExampleNumber = 6
+    public static var ExampleNumber = 7
     
     public static var Minimize = true
     
-    public static var ActuatorIndex = 1
+    public static var ActuatorIndex = 3
     
     public static var Accuracy = 0.001
     
