@@ -159,7 +159,7 @@ class Equation {
     
     private func ParabolicMethod(x: [Double], i: Int) -> Double {
         let accuracy = 0.01
-        var h = 2 * 0.1
+        var h = 2 * 0.3
         
         var nextX = 0.0
         var currentX = 0.0
