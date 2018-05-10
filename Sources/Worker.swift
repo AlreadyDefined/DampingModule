@@ -2,7 +2,7 @@ import Foundation
 
 public class Worker {
     public init() {
-        let w0 = Array(repeating: 0.0, count: Settings.N)
+        let w0 = Array(repeating: 0.0, count: Settings.N-1)
         let equation = Equation(_T: Settings.T, _K: Settings.K, _M: Settings.M, _N: Settings.N, _R: Settings.R, _h_r: Settings.h_r(), _h_phi: Settings.h_phi(), _tau: Settings.tau())
         let solution = equation.Solve(w: w0)
         
@@ -12,7 +12,7 @@ public class Worker {
         
         if (Settings.Minimize) {
             let start = Date()
-            w = equation.minimize(x0: w0)
+            w = equation.Minimize(x0: w0)
             minimizedSolution = equation.Solve(w: w)
             workTimeSec = Date().timeIntervalSince(start)
         }

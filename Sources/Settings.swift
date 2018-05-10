@@ -8,26 +8,26 @@ public class Settings {
     
     public static var R = 1.0
     
-    public static var ExampleNumber = 5
+    public static var ExampleNumber = 6
     
     public static var Minimize = true
     
-    public static var ActuatorIndex = 1
+    public static var ActuatorIndex = 2
     
     public static var Accuracy = 0.001
     
-    public static var ActuatorType = ActType.point
+    public static var ActuatorType = ActType.none
     
     public static func h_r() -> Double {
         return Double(R) / (Double(M) - 0.5)
     }
     
     public static func h_phi() -> Double {
-        return .pi / Double(K)
+        return .pi / Double(K-1)
     }
     
     public static func tau() -> Double {
-        return T / Double(N)
+        return T / Double(N-1)
     }
     
     private static func Example1(type: FunctionType, m: Int, n: Double) -> Double {
@@ -40,7 +40,7 @@ public class Settings {
         case .h1:
             return r * (1 - r)
         case .f:
-            return t * (1 - 4 * r) / r
+            return 2*t - (1 - 2 * r) * t / r
         case .u:
             return r * (1 - r) * t
         }
@@ -89,7 +89,7 @@ public class Settings {
             return 0
         case .f:
             let const = cos(t) * cos(.pi * r / 2.0)
-            return 1.0/8.0 * const + pow(.pi, 2) / 32.0 * const + .pi/16.0 * const / r
+            return -1.0/8.0 * const + pow(.pi, 2) / 32.0 * const + .pi/16.0 * cos(t) * sin(.pi * r / 2.0) / r
         case .u:
             return 1.0/8.0 * cos(t) * cos(.pi * r / 2.0)
         }

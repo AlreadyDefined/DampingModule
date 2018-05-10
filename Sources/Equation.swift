@@ -29,13 +29,13 @@ class Equation {
     }
     
     private func calculate_f(w: [Double]) -> Array<Array<[Double]>> {
-        var f = Array(repeating: Array(repeating: Array(repeating: 0.0, count: M), count: K+2), count: N)
+        var f = Array(repeating: Array(repeating: Array(repeating: 0.0, count: M), count: K+2), count: N-1)
         
 //        switch (Settings.ActuatorType) {
 //        case Settings.ActType.none:
 //            for n in 0...N-1 {
 //                for k in 1...K {
-//                    for m in 0...M {
+//                    for m in 0...M-1 {
 //                        f[n][k][m] = Settings.Example(type: Settings.FunctionType.f, m: m, n: Double(n))
 //                    }
 //                }
@@ -49,8 +49,18 @@ class Equation {
 //            }
 //            break
 //        case Settings.ActType.point:
-            for n in 0...N-1 {
+            for n in 0...N-2 {
+//                f[n][2][Settings.ActuatorIndex] = w[n]
                 f[n][1][Settings.ActuatorIndex] = w[n]
+//                f[n][0][Settings.ActuatorIndex] = w[n]
+//
+//                f[n][2][Settings.ActuatorIndex + 1] = w[n]
+//                f[n][1][Settings.ActuatorIndex + 1] = w[n]
+//                f[n][0][Settings.ActuatorIndex + 1] = w[n]
+//
+//                f[n][2][Settings.ActuatorIndex + 2] = w[n]
+//                f[n][1][Settings.ActuatorIndex + 2] = w[n]
+//                f[n][0][Settings.ActuatorIndex + 2] = w[n]
             }
 //        }
 
@@ -132,34 +142,45 @@ class Equation {
                 break
             }
             
-            shift(u: &solution[n])
+            Shift(u: &solution[n])
         }
         
+//        let maxDiff = MathHelper.calculateMaxDiff(actual: solution[N-1], expected: MathHelper.calculateExactFunction())
+//        print("actual: \(solution[N-1])")
+//        print("exact: \(MathHelper.calculateExactFunction())")
+//        print("diff: \(maxDiff)")
+//        let maxDiff = MathHelper.calculateMaxDiff1(actual: solution[N-1], expected: MathHelper.calculateExactFunction())
+//        print("exact: \(MathHelper.calculateExactFunction())")
+//        print("diff: \(maxDiff)")
         
-        //print("Решение: \(solution)")
-        //let maxDiff = MathHelper.calculateMaxDiff(actual: solution, expected: MathHelper.calculateExactFunction())
-        //print("exact: \(MathHelper.calculateExactFunction()[N])")
-        //print("diff: \(maxDiff)")
-        //let maxDiff = MathHelper.calculateMaxDiff1(actual: solution, expected: MathHelper.calculateExactFunction())
-        //print("exact: \(MathHelper.calculateExactFunction()[N])")
-        //print("diff: \(maxDiff)")
+//        for n in 0...N-1 {
+//            for m in 0...M-1 {
+//                for k in 0...K+1 {
+//                    print("u_\(k) = \(solution[n][k][m])")
+//                }
+//                print("m = \(m)")
+//            }
+//            print("n = \(n)")
+//
+//        }
+        
         return solution
     }
     
-    private func shift(u: inout Array<[Double]>) {
+    private func Shift(u: inout Array<[Double]>) {
         for m in 0...M-1 {
             u[0][m] = u[2][m]
             u[K + 1][m] = u[K - 1][m]
         }
     }
     
-    public func minimize(x0: [Double]) -> [Double] {
+    public func Minimize(x0: [Double]) -> [Double] {
         return CoordinateDescent(x0: x0)
     }
     
     private func ParabolicMethod(x: [Double], i: Int) -> Double {
-        let accuracy = 0.01
-        var h = 2 * 0.3
+        let accuracy = 0.001
+        var h = 1.0
         
         var nextX = 0.0
         var currentX = 0.0
@@ -169,8 +190,6 @@ class Equation {
         var x3 = x
         
         repeat {
-            h /= 2
-            
             currentX = x2[i]
             
             x1[i] = currentX - h
@@ -198,12 +217,17 @@ class Equation {
                     nextX = currentX + h
                 }
             }
-            
-            x1[i] = nextX - h
             x2[i] = nextX
-            x3[i] = nextX + h
+            
+            if (abs(nextX - currentX) < accuracy) {
+                h /= 2
+            }
+            
+            if (h < accuracy) {
+                break
+            }
         }
-        while (abs(nextX - currentX) > accuracy)
+        while (true)
 
         return x2[i]
     }
@@ -220,14 +244,8 @@ class Equation {
             print("Управление: \(x)")
             print("Интеграл: \(integral)")
             
-            for i in 0...N-1 {
+            for i in 0...N-2 {
                 x[i] = ParabolicMethod(x: x, i: i)
-//                if (x[i] >= 5) {
-//                    x[i] = 5
-//                }
-//                else if (x[i] <= 5) {
-//                    x[i] = 5
-//                }
                 print(i)
             }
             counter += 1
