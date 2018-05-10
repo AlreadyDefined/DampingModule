@@ -16,7 +16,7 @@ public class Settings {
     
     public static var Accuracy = 0.001
     
-    public static var ActuatorType = ActType.none
+    public static var ActuatorType = ActType.point
     
     public static func h_r() -> Double {
         return Double(R) / (Double(M) - 0.5)
