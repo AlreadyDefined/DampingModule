@@ -4,7 +4,7 @@ public class Settings {
     public static var T = 2.0
     public static var K = 10
     public static var M = 5
-    public static var N = 100
+    public static var N = 400
     
     public static var R = 1.0
     
