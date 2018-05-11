@@ -179,10 +179,9 @@ class Equation {
     }
     
     private func ParabolicMethod(x: [Double], i: Int) -> Double {
-        let accuracy = 0.001
-        var h = 1.0
-        
-        var nextX = 0.0
+        let accuracy = 0.01
+        var h = 2.0
+
         var currentX = 0.0
         
         var x1 = x
@@ -203,23 +202,22 @@ class Equation {
             let a = (f3 - 2 * f2 + f1) / (2 * pow(h, 2))
             
             if (a > 0.001) {
-                nextX = currentX - b / (2 * a)
+                x2[i] = currentX - b / (2 * a)
             }
             else {
                 let minF = min(f1, f2, f3)
                 if (minF == f1) {
-                    nextX = currentX - h
+                    x2[i] = currentX - h
                 }
                 else if (minF == f2) {
-                    nextX = currentX
+                    x2[i] = currentX
                 }
-                else if (minF == f3) {
-                    nextX = currentX + h
+                else {
+                    x2[i] = currentX + h
                 }
             }
-            x2[i] = nextX
             
-            if (abs(nextX - currentX) < accuracy) {
+            if (abs(x2[i] - currentX) < accuracy) {
                 h /= 2
             }
             
