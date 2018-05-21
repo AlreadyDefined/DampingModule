@@ -1,9 +1,9 @@
 //
 //  Shared.swift
-//  HeatConductionEquation
+//  DampingModule
 //
-//  Created by Ирина Филиппова on 13.02.2018.
-//  Copyright © 2018 Ирина Филиппова. All rights reserved.
+//  Created by Irina Filippova.
+//  Copyright © 2017 Irina Filippova. All rights reserved.
 //
 
 import Foundation

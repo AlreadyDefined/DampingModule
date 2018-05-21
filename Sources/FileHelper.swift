@@ -1,3 +1,11 @@
+//
+//  FileHelper.swift
+//  DampingModule
+//
+//  Created by Irina Filippova.
+//  Copyright © 2017 Irina Filippova. All rights reserved.
+//
+
 import Foundation
 
 public class FileHelper {
@@ -8,7 +16,9 @@ public class FileHelper {
         do {
             result = try String(contentsOf: url, encoding: .utf8)
         }
-        catch {/* error handling here */}
+        catch {
+            print("Error handling \(url)")
+        }
         
         return result
     }

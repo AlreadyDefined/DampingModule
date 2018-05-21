@@ -1,9 +1,20 @@
+//
+//  Worker.swift
+//  DampingModule
+//
+//  Created by Irina Filippova.
+//  Copyright © 2017 Irina Filippova. All rights reserved.
+//
+
 import Foundation
 
 public class Worker {
     public init() {
-        let w0 = Array(repeating: 0.0, count: Settings.N-1)
-        let equation = Equation(_T: Settings.T, _K: Settings.K, _M: Settings.M, _N: Settings.N, _R: Settings.R, _h_r: Settings.h_r(), _h_phi: Settings.h_phi(), _tau: Settings.tau())
+        var w0 = Array(repeating: 0.0, count: Settings.N-1)
+        
+        let equation = Equation(_T: Settings.T, _K: Settings.K,
+            _M: Settings.M, _N: Settings.N, _R: Settings.R,
+            _h_r: Settings.h_r(), _h_phi: Settings.h_phi(), _tau: Settings.tau())
         let solution = equation.Solve(w: w0)
         
         var minimizedSolution = solution
@@ -37,7 +48,8 @@ public class Worker {
             _actuatorType: Settings.ActuatorType,
             _iters: equation.iters);
         
-        let payload =  String(data: try! JSONEncoder().encode(shared), encoding: String.Encoding.utf8) as String!
+        let payload =  String(data: try! JSONEncoder().encode(shared),
+                              encoding: String.Encoding.utf8) as String!
         
         let formatter = DateFormatter()
         formatter.dateFormat = "HH-mm-ss dd.MM.yyyy"
