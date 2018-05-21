@@ -42,29 +42,29 @@ class Equation {
         var f = Array(repeating: Array(repeating: Array(repeating: 0.0,
             count: M), count: K+2), count: N-1)
         
-        switch (Settings.ActuatorType) {
-        case Settings.ActType.none:
-            for n in 0...N-1 {
-                for k in 1...K {
-                    for m in 0...M-1 {
-                        f[n][k][m] = Settings.Example(
-                            type: Settings.FunctionType.f, m: m, n: Double(n))
-                    }
-                }
-            }
-            break
-        case Settings.ActType.circular:
-            for n in 0...N-1 {
-                for k in 1...K {
-                    f[n][k][Settings.ActuatorIndex] = w[n]
-                }
-            }
-            break
-        case Settings.ActType.point:
+  //      switch (Settings.ActuatorType) {
+    //    case Settings.ActType.none:
+      //      for n in 0...N-1 {
+             //   for k in 1...K {
+            //        for m in 0...M-1 {
+           //             f[n][k][m] = Settings.Example(
+          //                  type: Settings.FunctionType.f, m: m, n: Double(n))
+         //           }
+        //        }
+       //     }
+      //      break
+     //   case Settings.ActType.circular:
+    //        for n in 0...N-1 {
+            //    for k in 1...K {
+           //         f[n][k][Settings.ActuatorIndex] = w[n]
+          //      }
+         //   }
+        //    break
+       // case Settings.ActType.point:
             for n in 0...N-2 {
                 f[n][1][Settings.ActuatorIndex] = w[n]
             }
-        }
+        //}
 
         return f
     }
