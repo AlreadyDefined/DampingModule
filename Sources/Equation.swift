@@ -40,7 +40,7 @@ class Equation {
     
     private func calculate_f(w: [Double]) -> Array<Array<[Double]>> {
         var f = Array(repeating: Array(repeating: Array(repeating: 0.0,
-            count: M), count: K+2), count: N-1)
+            count: M), count: K+2), count: N)
         
         switch (Settings.ActuatorType) {
         case Settings.ActType.none:
@@ -54,7 +54,7 @@ class Equation {
             }
             break
         case Settings.ActType.circular:
-            for n in 0...N-1 {
+            for n in 0...N-2 {
                 for k in 1...K {
                     f[n][k][Settings.ActuatorIndex] = w[n]
                 }
@@ -231,8 +231,8 @@ class Equation {
 
     
     private func ParabolicMethod(x: [Double], i: Int) -> Double {
-        let accuracy = 0.001
-        var h = 0.5
+        let accuracy = 0.00001
+        var h = 0.2
 
         var currentX = 0.0
 
@@ -250,32 +250,36 @@ class Equation {
             let f2 = CalculateIntegral(w: x2)
             let f3 = CalculateIntegral(w: x3)
 
-            let b = (f3 - f1) / (2 * h)
-            let a = (f3 - 2 * f2 + f1) / (2 * pow(h, 2))
+//            let b = (f3 - f1) / (2 * h)
+//            let a = (f3 - 2 * f2 + f1) / (2 * pow(h, 2))
+            let b = (-f1 * (2 * currentX + h) + 4 * f2 * currentX - f3 * (2 * currentX - h)) / (2 * pow(h, 2))
+            let a = (f1 - 2 * f2 + f3) / (2 * pow(h, 2))
 
-            if (a > 0) {
-                x2[i] = currentX - b / (2 * a)
-            }
-            else {
-                let minF = min(f1, f2, f3)
-                if (minF == f1) {
-                    x2[i] = currentX - h
-                }
-                else if (minF == f2) {
-                    x2[i] = currentX
-                }
-                else {
-                    x2[i] = currentX + h
-                }
-            }
+            var temp = -b / (2 * a)
+//            if (a > 0) {
+//                x2[i] = currentX - b / (2 * a)
+//            }
+//            else {
+//                let minF = min(f1, f2, f3)
+//                if (minF == f1) {
+//                    x2[i] = currentX - h
+//                }
+//                else if (minF == f2) {
+//                    x2[i] = currentX
+//                }
+//                else {
+//                    x2[i] = currentX + h
+//                }
+//            }
 
-            if (abs(x2[i] - currentX) < accuracy) {
-                h /= 2
-            }
-
-            if (h < accuracy) {
+            if (abs(x2[i] - temp) < accuracy) {
+                //h /= 2
                 break
             }
+            x2[i] = temp
+//            if (h < accuracy) {
+//                break
+//            }
         }
             while (true)
 

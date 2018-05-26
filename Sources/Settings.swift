@@ -9,22 +9,22 @@
 import Foundation
 
 public class Settings {
-    public static var T = 3
-    public static var K = 5
+    public static var T = 2.0
+    public static var K = 10
     public static var M = 5
-    public static var N = 400
+    public static var N = 200
     
     public static var R = 1.0
     
-    public static var ExampleNumber = 7
+    public static var ExampleNumber = 6
     
     public static var Minimize = true
     
-    public static var ActuatorIndex = 1
+    public static var ActuatorIndex = 2
     
     public static var Accuracy = 0.001
     
-    public static var ActuatorType = ActType.point
+    public static var ActuatorType = ActType.circular
     
     public static func h_r() -> Double {
         return Double(R) / (Double(M) - 0.5)
