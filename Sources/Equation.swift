@@ -64,7 +64,7 @@ class Equation {
             for n in 0...N-2 {
                 f[n][1][Settings.ActuatorIndex] = w[n]
             }
-        }
+        //}
 
         return f
     }
