@@ -16,7 +16,7 @@ public class Settings {
     
     public static var R = 1.0
     
-    public static var ExampleNumber = 6
+    public static var ExampleNumber = 7
     
     public static var Minimize = true
     
