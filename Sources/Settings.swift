@@ -10,13 +10,13 @@ import Foundation
 
 public class Settings {
     public static var T = 2.0
-    public static var K = 15
+    public static var K = 5
     public static var M = 5
-    public static var N = 800
+    public static var N = 300
     
     public static var R = 1.0
     
-    public static var ExampleNumber = 5
+    public static var ExampleNumber = 7
     
     public static var Minimize = true
     
