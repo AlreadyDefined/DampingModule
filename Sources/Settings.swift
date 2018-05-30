@@ -20,7 +20,7 @@ public class Settings {
     
     public static var Minimize = true
     
-    public static var ActuatorIndex = 3
+    public static var ActuatorIndex = 1
     
     public static var Accuracy = 0.01
     
