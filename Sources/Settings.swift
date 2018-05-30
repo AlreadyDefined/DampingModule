@@ -12,11 +12,11 @@ public class Settings {
     public static var T = 3.0
     public static var K = 5
     public static var M = 5
-    public static var N = 700
+    public static var N = 600
     
     public static var R = 1.0
     
-    public static var ExampleNumber = 7
+    public static var ExampleNumber = 6
     
     public static var Minimize = true
     
